@@ -1,0 +1,15 @@
+{
+  "name": "jest",
+  "version": "1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "script": {
+    "test": "jest --experimental-vm-modules"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@babel/core": "^7.22.17",
+    "@babel/preset-env": "^7.22.15",
+    "babel-jest": "^29.7.0"
+  }
+}
