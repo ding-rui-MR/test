@@ -8,11 +8,12 @@ import {
  } from '@nestjs/common';
 import { StudentsService } from '../service/students.service';
 import { StudentDto } from 'src/dto/student.dto';
-import { User } from 'src/common/decorators';
+import { NoUser, SensitiveOperation, User } from 'src/common/decorators';
 import { Student } from 'src/entity/student.entity';
 import { ClassesDto } from 'src/dto/classes.dto';
 import {  UseGuards  /** ... **/} from '@nestjs/common';
 import { UserGuard } from '../common/guards/user.guard';
+import { SensitiveType } from 'src/entity/constants';
 
 
 
@@ -24,13 +25,14 @@ export class StudentsController {
 
     @Get('who-are-you')
     whoAreYou(@Query('name') name:string):string{
-        return this.studentsService.ImStudent(name);
+        return this.studentsService.ImStudent1(name);
     }
 
-    @UseGuards(UserGuard)
+    // @UseGuards(UserGuard)
+    @NoUser()
     @Post('who-are-you')
-    whoAreYouPost(@Body('name') name:string):string{
-        return this.studentsService.ImStudent(name);
+    whoAreYouPost(@Body('person') student:StudentDto):string{
+        return this.studentsService.ImStudent(student);
     }
     
     @Post('studentDto')
@@ -47,7 +49,7 @@ export class StudentsController {
     getNameById(@Query('id', ParseIntPipe) id: number) {
         return this.studentsService.getStudentName(id);
     }
-
+    @SensitiveOperation(SensitiveType.Set)
     @Post('set-student-name')
     setStudentName(@User() user: string) {
         return this.studentsService.setStudent(user);

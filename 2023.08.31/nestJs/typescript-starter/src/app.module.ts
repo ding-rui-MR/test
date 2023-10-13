@@ -5,6 +5,11 @@ import { StudentsController } from './controller/students.controller';
 import { StudentsService } from './service/students.service';
 import { StudentsModule } from './module/students.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SensitiveModule } from './module/sensitive.module';
+import { SensitiveController } from './controller/sensitive.controller';
+import { SensitiveService } from './service/sensitive.service';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { SensitiveInterceptor } from './common/interceptors/sensitive.interceptor';
 
 
 @Module({
@@ -20,8 +25,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true, // 数据库自动同步 entity 文件修改
     }),
+    SensitiveModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,    
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: SensitiveInterceptor,
+  }
+],
 })
 export class AppModule {}

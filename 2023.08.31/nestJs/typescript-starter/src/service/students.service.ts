@@ -18,8 +18,11 @@ export class StudentsService {
     ImStudentNoName() {
         return 'Im student';
     }
-    ImStudent(name:string) {
+    ImStudent1(name:string) {
         return 'Im student\n    '+name;
+    }    
+    ImStudent(student:StudentDto) {
+        return 'Im student\n    '+student.name+'\n'+student.age;
     }    
     printStudent(studentDto:StudentDto) {
         return 'Im student'+'888888/n'+studentDto.age;

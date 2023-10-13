@@ -4,6 +4,7 @@ import { StudentsController } from 'src/controller/students.controller';
 import { Classes } from 'src/entity/class.entity';
 import { Student } from 'src/entity/student.entity';
 import { StudentsService } from 'src/service/students.service';
+import { SensitiveModule } from './sensitive.module';
 
 
 @Module({
