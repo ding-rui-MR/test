@@ -14,6 +14,7 @@ import { ClassesDto } from 'src/dto/classes.dto';
 import {  UseGuards  /** ... **/} from '@nestjs/common';
 import { UserGuard } from '../common/guards/user.guard';
 import { SensitiveType } from 'src/entity/constants';
+import { TransformNamePipe } from 'src/common/pipes/name.pipes';
 
 
 
@@ -24,7 +25,7 @@ export class StudentsController {
     constructor(private readonly studentsService:StudentsService){}
 
     @Get('who-are-you')
-    whoAreYou(@Query('name') name:string):string{
+    whoAreYou(@Query('name',TransformNamePipe) name:string):string{
         return this.studentsService.ImStudent1(name);
     }
 
